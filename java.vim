@@ -24,6 +24,11 @@ setlocal dict+=~/mydict/java
 setlocal dict+=~/mydict/junit
 setlocal dict+=~/mydict/jar
 
+" using set complete+=k{filename}, you can specify any file
+" to be used with  and  for completion
+setlocal complete+=k~/mydict/spring,k~/mydict/springxml
+setlocal complete+=k~/mydict/java
+
 "use setlocal complete+=k{dictfile} to add a customized file for completion
 "with ,  and 
 " setlocal complete+=k~/mydict/java-import-lines
