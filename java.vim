@@ -3,6 +3,8 @@ if exists('b:did_my_ftplugin')
 endif
 let b:did_my_ftplugin = 1
 
+setlocal iskeyword+=@
+
 function! ReadJavadoc()
     :0read ~/java/javadocheader.java
 endfunction "autoindented 
