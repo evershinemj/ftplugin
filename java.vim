@@ -6,6 +6,8 @@ let b:did_my_ftplugin = 1
 setlocal iskeyword+=@
 
 setlocal path=~/java
+setlocal path+=~/mydict
+setlocal path+=~/linecomplete
 
 function! ReadJavadoc()
     :0read ~/java/javadocheader.java
