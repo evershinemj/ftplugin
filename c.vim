@@ -20,6 +20,8 @@ if exists('b:did_my_ftplugin')
 endif
 let b:did_my_ftplugin = 1
 
+setlocal path=~/c
+
 function! Boxes()
     :.!boxes -f $BOXES_SYS_CONF -d c
 endfunction

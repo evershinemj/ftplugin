@@ -5,6 +5,8 @@ let b:did_my_ftplugin = 1
 
 setlocal iskeyword+=@
 
+setlocal path=~/java
+
 function! ReadJavadoc()
     :0read ~/java/javadocheader.java
 endfunction "autoindented 
@@ -22,7 +24,7 @@ setlocal dict+=~/mydict/jar
 
 "use setlocal complete+=k{dictfile} to add a customized file for completion
 "with ,  and 
-setlocal complete+=k~/mydict/java-import-lines
+" setlocal complete+=k~/mydict/java-import-lines
 
 setlocal ignorecase
 "noremap <buffer> <LocalLeader>c o/**<CR>*<CR>*/<Esc>k

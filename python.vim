@@ -5,6 +5,7 @@ if exists('b:did_my_ftplugin')
 endif
 let b:did_my_ftplugin = 1
 
+setlocal path=~/python
 autocmd BufEnter *     set ic
 
 "add ! in case Boxes is already defined (! overwrites the possibly defined function)
