@@ -28,4 +28,10 @@ cnoremap      <Left>
 
 cnoremap      <Right>
 
+cnoremap      <S-Left>
+
+cnoremap      <S-Right>
+
+cnoremap getcmd     getcmdtype() == ':' ? '' : ''
+
 inoreabbrev ino inoreabbrev
