@@ -16,6 +16,8 @@ setlocal makeprg=javac
 
 setlocal formatprg=fmt
 
+badd ~/mydict/coding-common
+
 setlocal path=~/java
 setlocal path+=~/mydict
 setlocal path+=~/linecomplete
@@ -110,7 +112,10 @@ function! CompleteReference()
     let last_char = line[col - 2]
 
     " if getline('.') =~? '\s*' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s*' . '\1'
-    if getline('.') =~ '\s*' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s*' . last_char
+    " if getline('.') =~ '\s*' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s*' . last_char
+    " if getline('.') =~ '\(\s*\|(\)' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s*' . last_char
+    if getline('.') =~ '\(\s*\|(\)' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s\+' . last_char
+        echo 'matched'
         " let rest = match(line, '\s*' . '\([A-Z]\)\zs[a-zA-Z_0-9]\ze\s*')
         " ignorecase is set! 
         setlocal noic
@@ -118,11 +123,27 @@ function! CompleteReference()
         " should match the last word with Capitalized first letter
         " let rest = matchstr(line, '\s*' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s*' . last_char)
         " still not correct, as last_char might be contained in another word
-        let rest = matchstr(line, '\s*' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s*' . last_char . '$')
+        " let rest = matchstr(line, '\s*' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s*' . last_char . '$')
+        " BUG FOUND:
+        " SUBTLE BUG:
+        " \s*\|( should be parenthesized as a whole
+        " otherwise the pattern would be parsed as
+        " '\s*' . '\|' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s*'
+        " let rest = matchstr(line, '\s*\|(' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s*' . last_char . '$')
+        " let rest = matchstr(line, '\(\s*\|(\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s*' . last_char . '$')
+        " let rest = matchstr(line, '\(\s*\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s*' . last_char . '$')
+        " let rest = matchstr(line, '\(\s*\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s\+' . last_char . '$')
+        "
+        " BUG FOUND:
+        " getline(lnum) might contain a ) at the end, which is imapped by ( 
+        " let rest = matchstr(line, '\(\s*\|(\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s\+' . last_char . '$')
+        " add )\? befor $
+        let rest = matchstr(line, '\(\s*\|(\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s\+' . last_char . ')\?$')
         setlocal ic
         return rest
     else
         " return last_char
+        echo 'not matched'
         return ''
     endif
 endfunction
