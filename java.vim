@@ -16,6 +16,7 @@ setlocal makeprg=javac
 
 setlocal formatprg=fmt
 
+" only loaded buffers are scanned for line completion
 badd ~/mydict/coding-common
 
 setlocal path=~/java

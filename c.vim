@@ -27,6 +27,7 @@ function! Boxes()
 endfunction
 
 setlocal dict=~/mydict/c
+setlocal complete+=k~/mydict/c
 setlocal softtabstop=4
 let maplocalleader = ','
 noremap <buffer> <LocalLeader>c o/******************<CR><CR>******************/<Esc>k
