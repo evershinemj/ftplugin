@@ -35,6 +35,12 @@ inoremap <ma <manifest xmlns:android="http://schemas.android.com/apk/res/android
 inoremap <in <intent-filter><CR><action android:name="android.intent.action.SEND"/><CR><category android:name="android.intent.category.DEFAULT"/><CR></intent-filter>
 inoremap <di <dimen name="activity_">16dp</dimen><Esc>F"i
 
+inoremap <beans 
+            \ <beans xmlns="http://www.springframework.org/schema/beans"
+            \ <CR>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            \ <CR>xsi:schemaLocation="http://www.springframework.org/schema/beans
+            \ <CR>http://www.springframework.org/schema/beans/spring-beans.xsd">
+            \ <CR></beans><Esc>O
 
 func! AutoCompleteXmlTag()
     let l:curr_line = getline('.')
