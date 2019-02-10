@@ -13,6 +13,7 @@ command! ReadDependency call ReadDependency()
 set dict=~/mydict/maven
 
 set complete+=k~/mydict/maven
+set complete+=k~/mydict/mybatisxml
 
 packadd completepomxml
 
@@ -147,6 +148,49 @@ function! Properties()
     endif
 endfunction
 
+"  / ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \
+" |  /~~\                          /~~\  |
+" |\ \   |  " mybatis completion  |   / /|
+" | \   /|                        |\   / |
+" |  ~~  |                        |  ~~  |
+" |      |                        |      |
+"  \     |~~~~~~~~~~~~~~~~~~~~~~~~|     /
+"   \   /                          \   /
+"    ~~~                            ~~~
+
+inoremap <se <settings><CR><setting name="logImpl" value="LOG4J"/><CR></settings><CR><CR>
+inoremap <ty <typeAliases><CR><package name=""/><CR></typeAliases>
+inoremap <en 
+            \ <environments default="development">
+            \ <CR><environment id="development">
+            \ <CR><transactionManager type="JDBC">
+            \ <CR><property name="" value=""/>
+            \ <CR></transactionManager>
+            \ <CR><dataSource type="UNPOOLED">
+            \ <CR><property name="driver" value="com.mysql.jdbc.Driver"/>
+            \ <CR><property name="url" value="jdbc:mysql://localhost:3306/mybatis"/>
+            \ <CR><property name="username" value="root"/>
+            \ <CR><property name="password" value=""/>
+            \ <CR></dataSource>
+            \ <CR></environment>
+            \ <CR></environments>
+            \ <CR>
+inoreabbrev <m  
+            \ <mappers>
+            \ <CR><mapper resource="foo.xml"/>
+            \ <CR></mappers>
+inoremap <expr> co Configuration()
+function! Configuration()
+    let line = getline('.')
+    if line =~ 'DOCTYPE'
+        return "configuration\n" .
+                    \ "\tPUBLIC \"-//mybatis.org//DTD Config 3.0//EN\"\n" .
+                    \ "\"http://mybatis.org/dtd/mybatis-3-config.dtd\">\n" .
+                    \ "\b<configuration>\n</configuration>"
+    else
+        return 'co'
+    endif
+endfunction
 
 func! AutoCompleteXmlTag()
     let l:curr_line = getline('.')
