@@ -77,10 +77,14 @@ inoreabbrev  <p
 
 inoremap <proj 
             \ <project xmlns="http://maven.apache.org/POM/4.0.0"
-            \ <CR>xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance
+            \ <CR>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             \ <CR>xmlns:schemaLocation="http://maven.apache.org/POM/4.0.0
             \ <CR>http://maven.apache.org/xsd/maven-4.0.0.xsd">
-            \ <CR></project><Esc>O
+            \ <CR><modelVersion>4.0.0</modelVersion>
+            \ <CR><groupId>foo</groupId>
+            \ <CR><artifactId>bar</artifactId>
+            \ <CR><version>baz</version>
+            \ <CR><CR></project><Esc>O
 
 inoremap <mo <modelVersion>4.0.0</modelVersion>
 
@@ -133,9 +137,11 @@ function! Properties()
     let line = getline('.')
     if line =~ '<properties'
         echo 'matched'
+        " refactored
+        " added two newlines for better completion
         return ">\n" .
                     \ "<project.build.sourceEncoding>UTF-8</property.build.sourceEncoding>\n" .
-                    \ "</properties>"
+                    \ "</properties>\n\n"
     else
         return ">"
     endif
