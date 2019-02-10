@@ -140,7 +140,7 @@ function! Properties()
         " refactored
         " added two newlines for better completion
         return ">\n" .
-                    \ "<project.build.sourceEncoding>UTF-8</property.build.sourceEncoding>\n" .
+                    \ "<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n" .
                     \ "</properties>\n\n"
     else
         return ">"
