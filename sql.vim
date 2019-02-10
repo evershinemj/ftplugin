@@ -1,2 +1,2 @@
 set dict+=~/mydict/sql
-set complete+=~/mydict/sql
+set complete+=k~/mydict/sql
