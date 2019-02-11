@@ -34,7 +34,7 @@ inoremap <st <string name=""></string><Esc>F>a
 inoremap <it <item></item><Esc>F>a
 inoremap <ap <application<CR>android:allowBackup="true"<CR>android:icon="@mipmap/ic_launcher"<CR>android:label="@string/app_name"<CR>android:theme="@style/AppTheme"><CR></application><Esc>O
 inoremap <ac <activity><CR>android:name=".SomeActivity"<CR>android:label="@string/"<CR></activity><Esc>
-inoremap <ma <manifest xmlns:android="http://schemas.android.com/apk/res/android"<CR>package=""><CR></manifest><Esc>O
+inoremap <man <manifest xmlns:android="http://schemas.android.com/apk/res/android"<CR>package=""><CR></manifest><Esc>O
 inoremap <in <intent-filter><CR><action android:name="android.intent.action.SEND"/><CR><category android:name="android.intent.category.DEFAULT"/><CR></intent-filter>
 inoremap <di <dimen name="activity_">16dp</dimen><Esc>F"i
 
@@ -158,7 +158,7 @@ endfunction
 "   \   /                          \   /
 "    ~~~                            ~~~
 
-inoremap <se <settings><CR><setting name="logImpl" value="LOG4J"/><CR></settings><CR><CR>
+inoremap <sel <settings><CR><setting name="logImpl" value="LOG4J"/><CR></settings><CR><CR>
 inoremap <ty <typeAliases><CR><package name=""/><CR></typeAliases>
 inoremap <en 
             \ <environments default="development">
@@ -191,6 +191,25 @@ function! Configuration()
         return 'co'
     endif
 endfunction
+
+inoremap <expr> map Mapper()
+function! Mapper()
+    let line = getline('.')
+    if line =~ 'DOCTYPE'
+        return 'mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"' . "\n" .
+                    \ "\t" . '"http://mybatis.org/dtd/mybatis-3-mapper.dtd">' . "\n" .
+                    \ "\b" . '<mapper namespace="somepackage.mapper.FooMapper">' . "\n" .
+                    \ '</mapper>'
+    else
+        return 'map'
+    endif
+endfunction
+
+inoremap <sel  
+            \ <select id="foo" resultType="Country">
+            \ <CR>select somecolumns from sometable
+            \ <CR></select>
+
 
 func! AutoCompleteXmlTag()
     let l:curr_line = getline('.')
