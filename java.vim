@@ -223,7 +223,8 @@ setlocal omnifunc=javacomplete#Complete
 setlocal completefunc=javacomplete#CompleteParamsInfo
 
 
-inoremap <buffer> try    try<Space>{<CR>
+" inoremap <buffer> try    try<Space>{<CR>
+"
 " bug found:
 " inoremap <buffer> catch  catch(Exception e)<Space>{<Esc>2li
 " inoremap <buffer> catch  catch( e)<Space>{<Esc>4hi
@@ -328,12 +329,13 @@ setlocal tags+=~/Documents/javasrc/tags
 
 "setlocal dict+=~/mydict/javadoc
 setlocal dict=~/mydict/javadoc
-setlocal dict+=~/mydict/java
+" setlocal dict+=~/mydict/java
 setlocal dict+=~/mydict/junit
 setlocal dict+=~/mydict/jar
 setlocal dict+=~/mydict/javax
 setlocal dict+=~/mydict/java-variables
 setlocal dict+=~/mydict/android
+setlocal dict+=~/mydict/mybatis
 
 " using set complete+=k{filename}, you can specify any file
 " to be used with  and  for completion
