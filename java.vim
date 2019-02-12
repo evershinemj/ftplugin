@@ -240,6 +240,8 @@ function! Catch()
     " if line =~# 'wait\|sleep\|join' 
     if line =~# 'wait\|sleep\|join' || other_line =~# 'wait\|sleep\|join'
         return "catch (InterruptedException e) {\n"
+    elseif line =~? 'reader\|writer\|close' || other_line =~? 'reader\|writer\|close'
+        return "catch (IOException e) {\n"
     else
         return "catch (Exception e) {\n"
     endif
