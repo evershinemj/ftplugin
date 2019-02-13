@@ -158,6 +158,8 @@ endfunction
 "   \   /                          \   /
 "    ~~~                            ~~~
 
+inoremap <LocalLeader>#     #{}<Left>
+
 inoremap <sel <settings><CR><setting name="logImpl" value="LOG4J"/><CR></settings><CR><CR>
 inoremap <ty <typeAliases><CR><package name=""/><CR></typeAliases>
 inoremap <en 
