@@ -32,6 +32,8 @@ setlocal path+=~/linecomplete
 
 inoremap <buffer> {  {<Esc>o}<Esc>O
 
+inoremap <LocalLeader>t     @Test<CR>
+
 " inoreabbrev <expr> <buffer> <Space>{   NewThread()
 " function! NewThread()
 "     let line = getline('.')
@@ -46,18 +48,23 @@ inoremap <buffer> {  {<Esc>o}<Esc>O
 
 " mapping {<Space> slows down the parsing of {
 " inoremap <expr> <buffer> {<Space>   NewThread()
-inoremap <expr> <buffer> <LocalLeader>t   NewThread()
-function! NewThread()
-    let line = getline('.')
-    if line =~# '\s*new Thread'
-        return  
-                    \ "() {\npublic void run() {" .
-                    \ "\n}\n}.start();"
-    else
-        return ''
-    endif
-endfunction
 
+"  __^__                                                       __^__
+" ( ___ )-----------------------------------------------------( ___ )
+"  | / | inoremap <expr> <buffer> <LocalLeader>t   NewThread() | \ |
+"  | / | function! NewThread()                                 | \ |
+"  | / |     let line = getline('.')                           | \ |
+"  | / |     if line =~# '\s*new Thread'                       | \ |
+"  | / |         return                                        | \ |
+"  | / |                     \ "() {\npublic void run() {" .   | \ |
+"  | / |                     \ "\n}\n}.start();"               | \ |
+"  | / |     else                                              | \ |
+"  | / |         return ''                                     | \ |
+"  | / |     endif                                             | \ |
+"  | / | endfunction                                           | \ |
+"  |___|                                                       |___|
+" (_____)-----------------------------------------------------(_____)
+"
 inoremap <expr> <buffer> e.pr   Trace()
 function! Trace()
     let lnum = line('.')
