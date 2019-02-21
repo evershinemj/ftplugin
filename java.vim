@@ -122,7 +122,10 @@ function! CompleteReference()
     " if getline('.') =~? '\s*' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s*' . '\1'
     " if getline('.') =~ '\s*' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s*' . last_char
     " if getline('.') =~ '\(\s*\|(\)' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s*' . last_char
-    if getline('.') =~ '\(\s*\|(\)' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s\+' . last_char
+    " BUG FOUND:
+    " doesn't work when there are chars after the cursor
+    " if getline('.') =~ '\(\s*\|(\)' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s\+' . last_char
+    if getline('.') =~ '\(\s*\|(\)' . '\([A-Z]\)[a-zA-Z_0-9]' . '\s\+' . last_char . '.*'
         echo 'matched'
         " let rest = match(line, '\s*' . '\([A-Z]\)\zs[a-zA-Z_0-9]\ze\s*')
         " ignorecase is set! 
@@ -146,7 +149,9 @@ function! CompleteReference()
         " getline(lnum) might contain a ) at the end, which is imapped by ( 
         " let rest = matchstr(line, '\(\s*\|(\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s\+' . last_char . '$')
         " add )\? befor $
-        let rest = matchstr(line, '\(\s*\|(\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s\+' . last_char . ')\?$')
+        "
+        " let rest = matchstr(line, '\(\s*\|(\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s\+' . last_char . ')\?$')
+        let rest = matchstr(line, '\(\s*\|(\)' . '\([A-Z]\)\zs[a-zA-Z_0-9]*\ze\s\+' . last_char . '.*')
         setlocal ic
         return rest
     else
@@ -254,7 +259,8 @@ function! Catch()
     endif
 endfunction
 
-inoremap Strign String
+
+" inoremap Strign String
 
 " no need for <CR> in inoremap
 " <CR> is needed in nmap

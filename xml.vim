@@ -62,7 +62,7 @@ inoremap <cons
 " inoremap <prop
 "             \ <property name="" name=""/>
 inoreabbrev  <p
-            \ <property name="" name=""/>
+            \ <property name="" value=""/>
 
 
 "  / ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \
@@ -208,7 +208,7 @@ function! Mapper()
 endfunction
 
 inoremap <sel  
-            \ <select id="foo" resultType="Country">
+            \ <select id="foo" resultType="tk.mybatis.simple.model.SysUser">
             \ <CR>select somecolumns from sometable
             \ <CR></select>
 

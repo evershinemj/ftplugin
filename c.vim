@@ -22,6 +22,8 @@ let b:did_my_ftplugin = 1
 
 setlocal path=~/c
 
+inoremap  #in #include<stdio.h><CR>int main(){<CR><CR>}<Esc>ki<Tab>
+
 function! Boxes()
     :.!boxes -f $BOXES_SYS_CONF -d c
 endfunction
