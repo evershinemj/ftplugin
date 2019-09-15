@@ -14,13 +14,13 @@ inoremap try try<CR>catch / /<CR><CR>endtry<Esc>3ko
 "
 packadd completeall
 
-inoremap ino    inoremap
+" inoremap ino    inoremap
 
-inoremap nno    nnoremap
+" inoremap nno    nnoremap
 
-inoremap vno    vnoremap
+" inoremap vno    vnoremap
 
-inoremap cno    cnoremap
+" inoremap cno    cnoremap
 
 inoremap <expr> <e  Expr()
 function! Expr()
@@ -62,13 +62,17 @@ endfunction
 
 " cnoremap 
 
-cnoremap      <Left>
+" cnoremap      <Left>
 
-cnoremap      <Right>
+" cnoremap      <Right>
 
-cnoremap      <S-Left>
+" BUG FIXED:
+" cnoremap originally existed both in ~/.vim/mapping.vim and here in vim.vim
+" this is why opening this file changes cmdline key behavior
 
-cnoremap      <S-Right>
+" cnoremap      <S-Left>
+
+" cnoremap      <S-Right>
 
 cnoremap getcmd     getcmdtype() == ':' ? '' : ''
 

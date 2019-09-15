@@ -243,6 +243,23 @@ endfunc
 
 inoremap <expr> <Rela AutoCompleteRelativeLayout()
 
+inoremap <LocalLeader>ex    
+            \ <plugin>
+            \ <CR><groupId>org.codehaus.mojo</groupId>
+            \ <CR><artifactId>exec-maven-plugin</artifactId>
+            \ <CR><version>1.2.1</version>
+            \ <CR><executions>
+            \ <CR><execution>
+            \ <CR><goals>
+            \ <CR><goal>java</goal>
+            \ <CR></goals>
+            \ <CR></execution>
+            \ <CR></executions>
+            \ <CR><configuration>
+            \ <CR><mainClass>com.baixianliu.chooselunch.App</mainClass>
+            \ <CR></configuration>
+            \ <CR></plugin>
+
 " function AutoCompleteRelativeLayout()
 " prevents error of redefining function when another xml
 " file is loaded
