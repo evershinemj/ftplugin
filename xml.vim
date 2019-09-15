@@ -13,6 +13,7 @@ command! ReadDependency call ReadDependency()
 set dict=~/mydict/maven
 
 set complete+=k~/mydict/maven
+set complete+=k~/mydict/mybatisxml
 
 packadd completepomxml
 
@@ -33,7 +34,7 @@ inoremap <st <string name=""></string><Esc>F>a
 inoremap <it <item></item><Esc>F>a
 inoremap <ap <application<CR>android:allowBackup="true"<CR>android:icon="@mipmap/ic_launcher"<CR>android:label="@string/app_name"<CR>android:theme="@style/AppTheme"><CR></application><Esc>O
 inoremap <ac <activity><CR>android:name=".SomeActivity"<CR>android:label="@string/"<CR></activity><Esc>
-inoremap <ma <manifest xmlns:android="http://schemas.android.com/apk/res/android"<CR>package=""><CR></manifest><Esc>O
+inoremap <man <manifest xmlns:android="http://schemas.android.com/apk/res/android"<CR>package=""><CR></manifest><Esc>O
 inoremap <in <intent-filter><CR><action android:name="android.intent.action.SEND"/><CR><category android:name="android.intent.category.DEFAULT"/><CR></intent-filter>
 inoremap <di <dimen name="activity_">16dp</dimen><Esc>F"i
 
@@ -61,7 +62,7 @@ inoremap <cons
 " inoremap <prop
 "             \ <property name="" name=""/>
 inoreabbrev  <p
-            \ <property name="" name=""/>
+            \ <property name="" value=""/>
 
 
 "  / ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \
@@ -140,12 +141,76 @@ function! Properties()
         " refactored
         " added two newlines for better completion
         return ">\n" .
-                    \ "<project.build.sourceEncoding>UTF-8</property.build.sourceEncoding>\n" .
+                    \ "<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n" .
                     \ "</properties>\n\n"
     else
         return ">"
     endif
 endfunction
+
+"  / ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \
+" |  /~~\                          /~~\  |
+" |\ \   |  " mybatis completion  |   / /|
+" | \   /|                        |\   / |
+" |  ~~  |                        |  ~~  |
+" |      |                        |      |
+"  \     |~~~~~~~~~~~~~~~~~~~~~~~~|     /
+"   \   /                          \   /
+"    ~~~                            ~~~
+
+inoremap <LocalLeader>#     #{}<Left>
+
+inoremap <sel <settings><CR><setting name="logImpl" value="LOG4J"/><CR></settings><CR><CR>
+inoremap <ty <typeAliases><CR><package name=""/><CR></typeAliases>
+inoremap <en 
+            \ <environments default="development">
+            \ <CR><environment id="development">
+            \ <CR><transactionManager type="JDBC">
+            \ <CR><property name="" value=""/>
+            \ <CR></transactionManager>
+            \ <CR><dataSource type="UNPOOLED">
+            \ <CR><property name="driver" value="com.mysql.jdbc.Driver"/>
+            \ <CR><property name="url" value="jdbc:mysql://localhost:3306/mybatis"/>
+            \ <CR><property name="username" value="root"/>
+            \ <CR><property name="password" value=""/>
+            \ <CR></dataSource>
+            \ <CR></environment>
+            \ <CR></environments>
+            \ <CR>
+inoreabbrev <m  
+            \ <mappers>
+            \ <CR><mapper resource="foo.xml"/>
+            \ <CR></mappers>
+inoremap <expr> co Configuration()
+function! Configuration()
+    let line = getline('.')
+    if line =~ 'DOCTYPE'
+        return "configuration\n" .
+                    \ "\tPUBLIC \"-//mybatis.org//DTD Config 3.0//EN\"\n" .
+                    \ "\"http://mybatis.org/dtd/mybatis-3-config.dtd\">\n" .
+                    \ "\b<configuration>\n</configuration>"
+    else
+        return 'co'
+    endif
+endfunction
+
+inoremap <expr> map Mapper()
+function! Mapper()
+    let line = getline('.')
+    if line =~ 'DOCTYPE'
+        return 'mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"' . "\n" .
+                    \ "\t" . '"http://mybatis.org/dtd/mybatis-3-mapper.dtd">' . "\n" .
+                    \ "\b" . '<mapper namespace="somepackage.mapper.FooMapper">' . "\n" .
+                    \ '</mapper>'
+    else
+        return 'map'
+    endif
+endfunction
+
+inoremap <sel  
+            \ <select id="foo" resultType="tk.mybatis.simple.model.SysUser">
+            \ <CR>select somecolumns from sometable
+            \ <CR></select>
 
 
 func! AutoCompleteXmlTag()
@@ -177,6 +242,23 @@ func! AutoCompleteXmlTag()
 endfunc
 
 inoremap <expr> <Rela AutoCompleteRelativeLayout()
+
+inoremap <LocalLeader>ex    
+            \ <plugin>
+            \ <CR><groupId>org.codehaus.mojo</groupId>
+            \ <CR><artifactId>exec-maven-plugin</artifactId>
+            \ <CR><version>1.2.1</version>
+            \ <CR><executions>
+            \ <CR><execution>
+            \ <CR><goals>
+            \ <CR><goal>java</goal>
+            \ <CR></goals>
+            \ <CR></execution>
+            \ <CR></executions>
+            \ <CR><configuration>
+            \ <CR><mainClass>com.baixianliu.chooselunch.App</mainClass>
+            \ <CR></configuration>
+            \ <CR></plugin>
 
 " function AutoCompleteRelativeLayout()
 " prevents error of redefining function when another xml
